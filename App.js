@@ -79,14 +79,14 @@ const s = StyleSheet.create({
 
   },
   arrow: {
-    // flexDirection: "row",
-    // alignSelf:"flex-end",
-    padding: 50,
-    paddingEnd: 100,
+    flexDirection: "row",
+    alignSelf:"flex-end",
+    padding: 30,
+    paddingEnd: 81,
     paddingTop: 30,
     marginBottom: 30,
     alignSelf: "center",
-    color: '#1A237E',
+    color: 'green',
     width: 28,
     height: 28,
   },
@@ -98,8 +98,8 @@ const s = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  carousel:{
-    height:200,
+  carousel: {
+    height: 200,
   }
 });
 
@@ -130,7 +130,8 @@ export default class Example extends Component {
         expiry: '',
         address: '',
         index: 0,
-        type: 'visa'
+        type: 'Visa',
+        show:false
       }
   }
 
@@ -146,7 +147,23 @@ export default class Example extends Component {
   //       </TouchableOpacity>)
 
 
+  submitForm = (val, text) => {
+    this.setState({ type: text })
+
+  }
+  comp(){
+    console.log('hi')
+    if(this.state.show == true){
+      this.setState({show:false})
+    }
+    else{
+      this.setState({show:true})
+    }
+  }
+
   render() {
+
+    console.log(this.state.type)
     return (
       // <Carousel style={s.carousel}
       //   data={data}
@@ -159,16 +176,52 @@ export default class Example extends Component {
       //   }}
       //pagingEnable={false}
       // />
-      <View >
+      <View>
+
+        <View style={{ flexDirection: 'row', marginTop: 30 }}>
+          <ScrollView horizontal={true}>
+
+            {array.map((val, ind) => {
+              return (
+                <TouchableOpacity onPress={() => { this.submitForm(val.image, val.text) }}>
+
+
+                  <Image source={{ uri: `${val.image}` }} key={ind}
+                    style={{ width: 180, height: 100, padding: 10, justifyContent: 'space-around', }} />
+                </TouchableOpacity>
+              )
+            })}
+
+          </ScrollView>
+        </View>
+
+
         <ScrollView>
           <View style={s.visa}>
+
             <View>
-              <Image style={s.imag} source={require("./Images/visa-logo-v2.jpg")} />
+
+              {this.state.type == "Visa" ?
+                <Image style={s.imag} source={require("./Images/visa-logo-v2.jpg")} /> :
+                this.state.type == "Paypal" ?
+                  <Image style={s.imag} source={require("./Images/paypal.png")} /> :
+                  <Image style={s.imag} source={require("./Images/master.png")} />}
+
+
             </View>
             <View style={s.arrow}>
-              <TouchableOpacity>
-                <Icon name="md-arrow-dropright" style={s.arrow} /></TouchableOpacity>
-            </View></View>
+            <TouchableOpacity onPress={() => { this.comp() }}>
+                {/* {this.state.show == false?
+                <Icon name="arrow-dropright" style={{ width:50, color:'blue' ,fontSize:35,marginTop:10,marginLeft:130}} />
+             :                  */}
+             
+             {/* <Text> Hi</Text> */}
+             <Icon name="arrow-dropdown" style={{ width:50, color:'blue' ,fontSize:35,marginTop:10,marginLeft:130}} />   
+             {/* //         } */}
+
+              </TouchableOpacity>
+            </View>
+          </View>
           <View style={s.TextInput}>
 
             <View style={s.card}>
@@ -187,10 +240,10 @@ export default class Example extends Component {
               <TextInput ref="address" placeholder="ADDRESS" autoFocus={true} value={this.state.address} onChangeText={(address) => this.setState({ address })} />
             </View>
             <View style={s.b}>
-              <View style={{ width: 200, height: 90, borderBottomLeftRadius: 60 , backgroundColor:"blue" , text:"pay" }}>
+              <View style={{ width: 200, height: 90, borderBottomLeftRadius: 60, backgroundColor: "blue", text: "pay" }}>
                 <Button >Pay</Button>
               </View>
-              <View style={{ width: 200, height: 20, borderBottomLeftRadius: 60 ,  backgroundColor:"blue" , text:"pay" }}>
+              <View style={{ width: 200, height: 20, borderBottomLeftRadius: 60, backgroundColor: "blue", text: "pay" }}>
                 <Button >Pay</Button>
               </View>
             </View>
