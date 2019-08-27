@@ -151,12 +151,14 @@ export default class Example extends Component {
     this.setState({ type: text })
 
   }
-  comp(){
+  comp=()=> {
     console.log('hi')
     if(this.state.show == true){
+      console.log('hi')
       this.setState({show:false})
     }
     else{
+      console.log('else')
       this.setState({show:true})
     }
   }
@@ -210,20 +212,19 @@ export default class Example extends Component {
 
             </View>
             <View style={s.arrow}>
-            <TouchableOpacity onPress={() => { this.comp() }}>
-                {/* {this.state.show == false?
-                <Icon name="arrow-dropright" style={{ width:50, color:'blue' ,fontSize:35,marginTop:10,marginLeft:130}} />
-             :                  */}
+            <TouchableOpacity onPress={() => { this.comp() }} style={{width:100,height:50,marginTop:14}}>
+                {this.state.show == false?
+                <Icon name="arrow-dropright" style={{ width:50, color:'blue' ,fontSize:35}} />
+             :                 
              
-             {/* <Text> Hi</Text> */}
-             <Icon name="arrow-dropdown" style={{ width:50, color:'blue' ,fontSize:35,marginTop:10,marginLeft:130}} />   
-             {/* //         } */}
+             <Icon name="arrow-dropdown" style={{ width:50, color:'blue' ,fontSize:35}} />   
+                   } 
 
               </TouchableOpacity>
             </View>
           </View>
+          {this.state.show == true?
           <View style={s.TextInput}>
-
             <View style={s.card}>
               <TextInput ref="name" placeholder="CARDHOLDER NAME" autoFocus={true} value={this.state.name} onChangeText={(name) => this.setState({ name: name })} />
             </View>
@@ -239,6 +240,7 @@ export default class Example extends Component {
             <View style={s.card}>
               <TextInput ref="address" placeholder="ADDRESS" autoFocus={true} value={this.state.address} onChangeText={(address) => this.setState({ address })} />
             </View>
+
             <View style={s.b}>
               <View style={{ width: 200, height: 90, borderBottomLeftRadius: 60, backgroundColor: "blue", text: "pay" }}>
                 <Button >Pay</Button>
@@ -248,6 +250,7 @@ export default class Example extends Component {
               </View>
             </View>
           </View>
+            : <View></View>}
         </ScrollView>
       </View>
     );
