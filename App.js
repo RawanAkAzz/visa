@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableOpacity , Dimensions} from "react-native";
 import { Button } from 'react-native-elements'
-import { Icon, Item } from "native-base"
-import Carousel from 'react-native-snap-carousel';
+import { Icon, Item, Content } from "native-base"
+
 
 
 const s = StyleSheet.create({
   TextInput: {
     backgroundColor: "#fff",
-    marginTop: 60,
+    marginTop: 5,
   },
   label: {
     color: "black",
@@ -47,21 +47,19 @@ const s = StyleSheet.create({
     fontSize: 40,
   },
   imag: {
-    width: 120,
-    height: 30,
-    marginTop: 50,
+    resizeMode:'contain',
+    width: 100,
+    height: 80,
+    marginTop: 0,
     padding: 30,
     paddingLeft: 30,
-    // borderTopEndRadius:60,
-
   },
   visa: {
+    height: 90,
     borderRadius: 10,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    backgroundColor: '#fff',
+    marginTop: 50,
+    backgroundColor: '#ffff',
     marginTop: 10,
-    paddingEnd: 90,
     paddingTop: 10,
     elevation: 3,
     borderBottomWidth: 3,
@@ -71,24 +69,27 @@ const s = StyleSheet.create({
     borderTopWidth: 3,
     borderColor: '#ddd',
     padding: 20,
-    alignSelf: "flex-end",
     flexDirection: "row",
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     marginBottom: 10,
+    justifyContent: "space-between",
+    width:Dimensions.get("window").width
 
   },
   arrow: {
-    flexDirection: "row",
-    alignSelf:"flex-end",
-    padding: 30,
-    paddingEnd: 81,
+    marginLeft: 70,
+    //alignSelf:"flex-start",
+    alignContent: "flex-end",
+    padding: 50,
+    paddingEnd: 100,
     paddingTop: 30,
     marginBottom: 30,
     alignSelf: "center",
-    color: 'green',
+    color: '#191970',
     width: 28,
-    height: 28,
+    height: 50,
+    justifyContent:"space-between"
   },
   b: {
     flexDirection: "row",
@@ -131,35 +132,22 @@ export default class Example extends Component {
         address: '',
         index: 0,
         type: 'Visa',
-        show:false
+        show: false
       }
   }
-
-
-  // renderItem = ({item, index}) => {
-  //   const {backgroundColor} = item;
-  //   return (
-  //       <TouchableOpacity style={[s.item, {backgroundColor}]}
-  //                         onPress={() => {
-  //                             this._carousel.scrollToIndex(index);
-  //                         }}>
-  //        ]
-  //       </TouchableOpacity>)
 
 
   submitForm = (val, text) => {
     this.setState({ type: text })
 
   }
-  comp=()=> {
-    console.log('hi')
-    if(this.state.show == true){
-      console.log('hi')
-      this.setState({show:false})
+  comp = () => {
+    if (this.state.show == true) {
+      this.setState({ show: false })
     }
-    else{
+    else {
       console.log('else')
-      this.setState({show:true})
+      this.setState({ show: true })
     }
   }
 
@@ -167,18 +155,7 @@ export default class Example extends Component {
 
     console.log(this.state.type)
     return (
-      // <Carousel style={s.carousel}
-      //   data={data}
-      //   renderItem={this.renderItem}
-      //   itemWidth={200}
-      //   containerWidth={width - 20}
-      //   separatorWidth={20}
-      //   ref={(c) => {
-      //     this._carousel = c;
-      //   }}
-      //pagingEnable={false}
-      // />
-      <View>
+      <Content>
 
         <View style={{ flexDirection: 'row', marginTop: 30 }}>
           <ScrollView horizontal={true}>
@@ -186,8 +163,6 @@ export default class Example extends Component {
             {array.map((val, ind) => {
               return (
                 <TouchableOpacity onPress={() => { this.submitForm(val.image, val.text) }}>
-
-
                   <Image source={{ uri: `${val.image}` }} key={ind}
                     style={{ width: 180, height: 100, padding: 10, justifyContent: 'space-around', }} />
                 </TouchableOpacity>
@@ -204,55 +179,67 @@ export default class Example extends Component {
             <View>
 
               {this.state.type == "Visa" ?
-                <Image style={s.imag} source={require("./Images/visa-logo-v2.jpg")} /> :
+                <Image style={s.imag} source={require("./Images/visa-logo-v2.jpg")}  /> :
                 this.state.type == "Paypal" ?
                   <Image style={s.imag} source={require("./Images/paypal.png")} /> :
                   <Image style={s.imag} source={require("./Images/master.png")} />}
 
 
             </View>
-            <View style={s.arrow}>
-            <TouchableOpacity onPress={() => { this.comp() }} style={{width:100,height:50,marginTop:14}}>
-                {this.state.show == false?
-                <Icon name="arrow-dropright" style={{ width:50, color:'blue' ,fontSize:35}} />
-             :                 
-             
-             <Icon name="arrow-dropdown" style={{ width:50, color:'blue' ,fontSize:35}} />   
-                   } 
+              <TouchableOpacity onPress={() => { this.comp() }} style={{  height: 50, marginTop: 14 }}>
+                
+                  {/* <Icon name="md-arrow-dropright" style={{ color: '#191970', fontSize: 35 }} /> */}
+                  
+
+                  <Icon name="md-arrow-dropdown" style={{ color: '#191970', fontSize: 35 }} />
+                
 
               </TouchableOpacity>
             </View>
-          </View>
-          {this.state.show == true?
-          <View style={s.TextInput}>
-            <View style={s.card}>
-              <TextInput ref="name" placeholder="CARDHOLDER NAME" autoFocus={true} value={this.state.name} onChangeText={(name) => this.setState({ name: name })} />
-            </View>
-            <View style={s.card}>
-              <TextInput ref="number" placeholder="CARD NUMBER" autoFocus={true} value={this.state.number} onChangeText={(number) => this.setState({ number })} />
-            </View>
-            <View style={s.card}>
-              <TextInput ref="expiry" type="Number" placeholder="EXPIRD DATE" autoFocus={true} value={this.state.expiry} onChangeText={(expiry) => this.setState({ expiry })} />
-            </View>
-            <View style={s.card}>
-              <TextInput ref="cvv" placeholder="CVV" autoFocus={true} value={this.state.cvv} onChangeText={(cvv) => this.setState({ cvv })} />
-            </View>
-            <View style={s.card}>
-              <TextInput ref="address" placeholder="ADDRESS" autoFocus={true} value={this.state.address} onChangeText={(address) => this.setState({ address })} />
-            </View>
+          {/* {this.state.show == true ? */}
+            <View style={s.TextInput}>
+               <View>
 
-            <View style={s.b}>
-              <View style={{ width: 200, height: 90, borderBottomLeftRadius: 60, backgroundColor: "blue", text: "pay" }}>
-                <Button >Pay</Button>
+</View>
+              <View style={s.card}>
+                <TextInput ref="name" placeholder="CARDHOLDER NAME" autoFocus={true} value={this.state.name} onChangeText={(name) => this.setState({ name: name })} />
               </View>
-              <View style={{ width: 200, height: 20, borderBottomLeftRadius: 60, backgroundColor: "blue", text: "pay" }}>
-                <Button >Pay</Button>
+              <View style={s.card}>
+                <TextInput ref="number" placeholder="CARD NUMBER" autoFocus={true} value={this.state.number} onChangeText={(number) => this.setState({ number })} />
+              </View>
+              <View style={s.card}>
+                <TextInput ref="expiry" type="Number" placeholder="EXPIRD DATE" autoFocus={true} value={this.state.expiry} onChangeText={(expiry) => this.setState({ expiry })} />
+              </View>
+              <View style={s.card}>
+                <TextInput ref="cvv" placeholder="CVV" autoFocus={true} value={this.state.cvv} onChangeText={(cvv) => this.setState({ cvv })} />
+              </View>
+              <View style={s.card}>
+                <TextInput ref="address" placeholder="ADDRESS" autoFocus={true} value={this.state.address} onChangeText={(address) => this.setState({ address })} />
+              </View>
+              <View style={s.b}>
+                <View style={{
+                  width: 200, height: 90, borderBottomLeftRadius: 60, backgroundColor: "white", shadowOffset: {
+                    width: 0,flexDirection:'column',
+                    height: 2,
+                  },
+                  shadowOpacity: 0.40,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                }}>
+                  <Text style={{ color: "#5DA2D5", textAlign: "center", margin: "auto" , justifyContent:"center", alignContent:"center"}} onPress={this.onPress} >Payment Amount</Text>
+                  <Text style={{ color: '#191970', fontSize:20, textAlign: "center", margin: "auto", justifyContent:"center" , alignContent:"center"  , marginTop:18}} onPress={this.onPress} >470,00JOD</Text>
+
+                </View>
+                <TouchableOpacity>
+                  <View style={{ width: 200, height: 90, borderBottomRightRadius: 60, backgroundColor: "#051A38" }}>
+                    <Text style={{ color: "white", textAlign: "center", justifyContent: "center", fontSize: 40 , marginTop :12 }}>Pay</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-          </View>
-            : <View></View>}
+             <View></View>
         </ScrollView>
-      </View>
+      </Content>
     );
   }
 }
