@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableOpacity , Dimensions} from "react-native";
+import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableOpacity, Dimensions } from "react-native";
 import { Button } from 'react-native-elements'
 import { Icon, Item, Content } from "native-base"
 
@@ -47,7 +47,7 @@ const s = StyleSheet.create({
     fontSize: 40,
   },
   imag: {
-    resizeMode:'contain',
+    resizeMode: 'contain',
     width: 100,
     height: 80,
     marginTop: 0,
@@ -74,7 +74,7 @@ const s = StyleSheet.create({
     borderTopLeftRadius: 30,
     marginBottom: 10,
     justifyContent: "space-between",
-    width:Dimensions.get("window").width
+    width: Dimensions.get("window").width
 
   },
   arrow: {
@@ -89,7 +89,7 @@ const s = StyleSheet.create({
     color: '#191970',
     width: 28,
     height: 50,
-    justifyContent:"space-between"
+    justifyContent: "space-between"
   },
   b: {
     flexDirection: "row",
@@ -179,65 +179,104 @@ export default class Example extends Component {
             <View>
 
               {this.state.type == "Visa" ?
-                <Image style={s.imag} source={require("./Images/visa-logo-v2.jpg")}  /> :
+                <Image style={s.imag} source={require("./Images/visa-logo-v2.jpg")} /> :
                 this.state.type == "Paypal" ?
                   <Image style={s.imag} source={require("./Images/paypal.png")} /> :
                   <Image style={s.imag} source={require("./Images/master.png")} />}
 
 
             </View>
-              <TouchableOpacity onPress={() => { this.comp() }} style={{  height: 50, marginTop: 14 }}>
-                
-                  {/* <Icon name="md-arrow-dropright" style={{ color: '#191970', fontSize: 35 }} /> */}
-                  
+            <TouchableOpacity onPress={() => { this.comp() }} style={{ height: 50, marginTop: 14 }}>
 
-                  <Icon name="md-arrow-dropdown" style={{ color: '#191970', fontSize: 35 }} />
-                
+              {/* <Icon name="md-arrow-dropright" style={{ color: '#191970', fontSize: 35 }} /> */}
 
-              </TouchableOpacity>
-            </View>
+
+              <Icon name="md-arrow-dropdown" style={{ color: '#191970', fontSize: 35 }} />
+
+
+            </TouchableOpacity>
+          </View>
           {/* {this.state.show == true ? */}
-            <View style={s.TextInput}>
-               <View>
+          <View style={s.TextInput}>
+            <View>
 
-</View>
-              <View style={s.card}>
-                <TextInput ref="name" placeholder="CARDHOLDER NAME" autoFocus={true} value={this.state.name} onChangeText={(name) => this.setState({ name: name })} />
-              </View>
-              <View style={s.card}>
-                <TextInput ref="number" placeholder="CARD NUMBER" autoFocus={true} value={this.state.number} onChangeText={(number) => this.setState({ number })} />
-              </View>
-              <View style={s.card}>
-                <TextInput ref="expiry" type="Number" placeholder="EXPIRD DATE" autoFocus={true} value={this.state.expiry} onChangeText={(expiry) => this.setState({ expiry })} />
-              </View>
-              <View style={s.card}>
-                <TextInput ref="cvv" placeholder="CVV" autoFocus={true} value={this.state.cvv} onChangeText={(cvv) => this.setState({ cvv })} />
-              </View>
-              <View style={s.card}>
-                <TextInput ref="address" placeholder="ADDRESS" autoFocus={true} value={this.state.address} onChangeText={(address) => this.setState({ address })} />
-              </View>
-              <View style={s.b}>
-                <View style={{
-                  width: 200, height: 90, borderBottomLeftRadius: 60, backgroundColor: "white", shadowOffset: {
-                    width: 0,flexDirection:'column',
-                    height: 2,
-                  },
-                  shadowOpacity: 0.40,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                }}>
-                  <Text style={{ color: "#5DA2D5", textAlign: "center", margin: "auto" , justifyContent:"center", alignContent:"center"}} onPress={this.onPress} >Payment Amount</Text>
-                  <Text style={{ color: '#191970', fontSize:20, textAlign: "center", margin: "auto", justifyContent:"center" , alignContent:"center"  , marginTop:18}} onPress={this.onPress} >470,00JOD</Text>
+            </View>
+
+
+              {this.state.type == "Paypal" ?
+                <View>
+                  <View style={s.card}>
+                    <TextInput ref="number" placeholder="CARD NUMBER" autoFocus={true} value={this.state.number} onChangeText={(number) => this.setState({ number })} />
+                  </View>
+                  <View style={s.card}>
+                    <TextInput ref="cvv" placeholder="CVV" autoFocus={true} value={this.state.cvv} onChangeText={(cvv) => this.setState({ cvv })} />
+                  </View>
+                  <View style={s.card}>
+                    <TextInput ref="expiry" type="Number" placeholder="EXPIRD DATE" autoFocus={true} value={this.state.expiry} onChangeText={(expiry) => this.setState({ expiry })} />
+                  </View>
 
                 </View>
-                <TouchableOpacity>
-                  <View style={{ width: 200, height: 90, borderBottomRightRadius: 60, backgroundColor: "#051A38" }}>
-                    <Text style={{ color: "white", textAlign: "center", justifyContent: "center", fontSize: 40 , marginTop :12 }}>Pay</Text>
+                :
+                this.state.type == "Visa" ?
+                  <View>
+                                        <View style={s.card}>
+
+                    <TextInput ref="name" placeholder="CARDHOLDER NAME" autoFocus={true} value={this.state.name} onChangeText={(name) => this.setState({ name: name })} />
+                    </View>
+                    <View style={s.card}>
+                      <TextInput ref="number" placeholder="CARD NUMBER" autoFocus={true} value={this.state.number} onChangeText={(number) => this.setState({ number })} />
+                    </View>
+
+                    <View style={s.card}>
+                      <TextInput ref="expiry" type="Number" placeholder="EXPIRD DATE" autoFocus={true} value={this.state.expiry} onChangeText={(expiry) => this.setState({ expiry })} />
+                    </View>
+                    <View style={s.card}>
+                      <TextInput ref="address" placeholder="ADDRESS" autoFocus={true} value={this.state.address} onChangeText={(address) => this.setState({ address })} />
+                    </View>
                   </View>
-                </TouchableOpacity>
+                  :
+
+                  <View>
+                                        <View style={s.card}>
+
+                    <TextInput ref="name" placeholder="CARDHOLDER NAME" autoFocus={true} value={this.state.name} onChangeText={(name) => this.setState({ name: name })} />
+</View>
+                    <View style={s.card}>
+                      <TextInput ref="number" placeholder="CARD NUMBER" autoFocus={true} value={this.state.number} onChangeText={(number) => this.setState({ number })} />
+                    </View>
+
+                    <View style={s.card}>
+                      <TextInput ref="expiry" type="Number" placeholder="EXPIRD DATE" autoFocus={true} value={this.state.expiry} onChangeText={(expiry) => this.setState({ expiry })} />
+                    </View>
+
+                  </View>
+              }
+
+
+
+         
+            <View style={s.b}>
+              <View style={{
+                width: 200, height: 90, borderBottomLeftRadius: 60, backgroundColor: "white", shadowOffset: {
+                  width: 0, flexDirection: 'column',
+                  height: 2,
+                },
+                shadowOpacity: 0.40,
+                shadowRadius: 3.84,
+                elevation: 5,
+              }}>
+                <Text style={{ color: "#5DA2D5", textAlign: "center", margin: "auto", justifyContent: "center", alignContent: "center" }} onPress={this.onPress} >Payment Amount</Text>
+                <Text style={{ color: '#191970', fontSize: 20, textAlign: "center", margin: "auto", justifyContent: "center", alignContent: "center", marginTop: 18 }} onPress={this.onPress} >470,00JOD</Text>
+
               </View>
+              <TouchableOpacity>
+                <View style={{ width: 200, height: 90, borderBottomRightRadius: 60, backgroundColor: "#051A38" }}>
+                  <Text style={{ color: "white", textAlign: "center", justifyContent: "center", fontSize: 40, marginTop: 12 }}>Pay</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-             <View></View>
+          </View>
+          <View></View>
         </ScrollView>
       </Content>
     );
